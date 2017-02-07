@@ -17,7 +17,7 @@ int main() {
     
     stack<int> s; // intialize stack s
     database expressionvalues; // database to store expression values
-    char postfix[1000]; // postfix expression
+    string postfix[1000]; // string array to hold postfix expression
     char input; // user input
     bool keepgoing = false; // if the user wants to continue making postfix expression calculations
     
@@ -28,30 +28,40 @@ int main() {
         int array_size = 0; // keeps track the size of the array
         
         cout << "Enter a postfix expression: ";
+        
         while(quit == false) // loop to get user input
         {
-            cin >> input; // gets user input
+            cin.get(input);
             if(input == '$') // checks for the stop
             {
                 quit = true;
             }
             else
             {
-                postfix[i] = input;
-                i++; // increment i
-                array_size++; // increments the array size
+                if(isspace(input)) // checks char element if it is white space delimiter
+                {
+                    i++; // increment i
+                    array_size++; // increments the array size to keep track of array elements
+
+                }
+                // adds the input to postfix expression array
+                else
+                {
+                    postfix[i] = postfix[i] + input; // catanate the string
+                }
+                
             }
         }
-        
-        
        
+      
+        
         int value; // user inputed value of alphabetical letter
         
         for(int j = 0; j < array_size ;j++)
         {
-            
+            cout << postfix[j] << endl;
             // checks if the postfix index is a letter if it is then lets user assign it a valie
-            if(isalpha(postfix[j]))
+            if(isLetter(postfix[j]))
             {
                 // checks if the postfix index is a duplicate if false then
                 if(expressionvalues.check_for_duplicates(postfix[j]) == false)
@@ -69,10 +79,17 @@ int main() {
                     s.push(expressionvalues.getDvalue(postfix[j]));
                 }
                
+            }
+            
+            // checks to see if string is digit
+            else if (isNumber(postfix[j]))
+            {
+              // push the value of the string conver the string to a int with stoi
+                s.push(stoi(postfix[j]));
                 
             }
             
-            if(isOpperand(postfix[j])) // check if postfix index is an opprand if so perform the opperation
+           else if(isOpperand(postfix[j])) // check if postfix index is an opprand if so perform the opperation
             {
                 int num1 = s.top(); // assigns num1 the top of the stack
                 s.pop(); // pops out top
@@ -81,12 +98,14 @@ int main() {
                 s.pop(); // pops out top
                 
                 s.push(doMath(num1,num2,postfix[j])); // does the calculations then push on top of the stack
-           
             }
+          
+            
         }
         
-        cout << "Final Value=" << s.top() << '\n';
-        s.pop();
+        cout << "Final Value = " << s.top() << '\n';
+        s.pop(); // pops the top of the stack
+        
         
         char choice; // user choice to continue or not
         cout << "Continue(y/n)?";
@@ -97,6 +116,7 @@ int main() {
         {
             keepgoing = true;
             expressionvalues.clear();
+            
         }
         
         else if(choice =='N' || choice == 'n')
@@ -104,6 +124,7 @@ int main() {
             keepgoing = false;
         }
         cout <<'\n';
+        
         
     }while(keepgoing == true);
     

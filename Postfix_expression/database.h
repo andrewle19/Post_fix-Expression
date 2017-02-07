@@ -1,14 +1,17 @@
 //
-//  database class
+// database class
 // database that stores the expression and the value to avoid inputed duplicates
 #ifndef DATABASE_h
 #define DATABASE_h
+#include <iostream>
+#include <string>
+using namespace std;
 
 
 class database
 {
 private:
-    char expression[50]; // each element of expression
+    string expression[50]; // each element of expression
     int value[50]; // value for each expression char associated to expression index
     int size;
 public:
@@ -23,7 +26,7 @@ public:
     
     // checks the database to see if expression element is already used
     // INPUT: postfix expression element
-    bool check_for_duplicates(char express)
+    bool check_for_duplicates(string express)
     {
         for(int i = 0; i < size; i++)
         {
@@ -42,7 +45,7 @@ public:
     {
         for(int i = 0; i < size; i++)
         {
-            expression[i] = ' ';
+            expression[i] = "";
             value[i] = 0;
         }
         size = 0;
@@ -50,9 +53,9 @@ public:
     
     
     // gets the value for a duplicate expression element
-    // INPUT: postfix expression element
+    // INPUT: stringpostfix expression element
     // OUTPUT: value for the duplicate of the expression element
-    int getDvalue(char express)
+    int getDvalue(string express)
     {
         for(int i = 0; i < size; i++)
         {
@@ -65,12 +68,14 @@ public:
     }
     
     // Inserts into the class
-    // INPUT: express- character in postfix expression, a_value-value associated to it
+    // INPUT: express- string in postfix expression, a_value-value associated to it
     // OUTPUT: NONE
-    void Insert(char express,int a_value)
+    void Insert(string express, int a_value)
     {
         expression[size] = express;
+    
         value[size] = a_value;
+       
         size++;
     }
     
