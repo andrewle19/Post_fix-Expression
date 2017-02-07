@@ -3,6 +3,21 @@
 #ifndef FUNCTIONS_h
 #define FUNCTIONS_h
 
+// Clears an array of strings
+// INPUT: string array, the size of the array
+// OUTPUT: return none
+
+void clearStrings(string array[],int size)
+{
+    for(int i = 0; i < size; i++)
+    {
+        array[i] = ""; // clear array
+    }
+
+}
+
+
+
 // performs the opperand on the top 2 numbers of the stack, used if isOpperand == true
 // input: num1-top number in the stack, num2 - second number in stack, opperand - opperand to execute
 // returns; int calculation of the two numbers depending on the opperands

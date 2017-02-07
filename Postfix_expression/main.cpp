@@ -18,15 +18,14 @@ int main() {
     stack<int> s; // intialize stack s
     database expressionvalues; // database to store expression values
     string postfix[1000]; // string array to hold postfix expression
-    char input; // user input
     bool keepgoing = false; // if the user wants to continue making postfix expression calculations
-    
+    char input;
+   
     do
     {
         bool quit = false; // quits loop when user enters $
         int i = 0; // increment counter for char postfix array
         int array_size = 0; // keeps track the size of the array
-        
         cout << "Enter a postfix expression: ";
         
         while(quit == false) // loop to get user input
@@ -59,7 +58,6 @@ int main() {
         
         for(int j = 0; j < array_size ;j++)
         {
-            cout << postfix[j] << endl;
             // checks if the postfix index is a letter if it is then lets user assign it a valie
             if(isLetter(postfix[j]))
             {
@@ -89,7 +87,7 @@ int main() {
                 
             }
             
-           else if(isOpperand(postfix[j])) // check if postfix index is an opprand if so perform the opperation
+            else if(isOpperand(postfix[j])) // check if postfix index is an opprand if so perform the opperation
             {
                 int num1 = s.top(); // assigns num1 the top of the stack
                 s.pop(); // pops out top
@@ -112,11 +110,13 @@ int main() {
         cin >> choice;
         
         // check what the user wants to do
-        if(choice == 'Y' || choice == 'y') // if yes clears the database then reloops
+        // if yes clears the database yand string arrathen reloops
+        if(choice == 'Y' || choice == 'y')
         {
             keepgoing = true;
-            expressionvalues.clear();
-            
+            expressionvalues.clear(); // clear data base
+            clearStrings(postfix,array_size); // clear string arrays
+            cin.ignore();
         }
         
         else if(choice =='N' || choice == 'n')
